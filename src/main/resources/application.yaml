@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flat_rent
+    username: postgres
+    password: 123456
+    driver: org.postgresql.Driver
