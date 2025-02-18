@@ -5,12 +5,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
+    private static final int PRECISION_TEN = 10;
+    private static final int SCALE_TWO = 2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +35,9 @@ public class Booking {
     @Column(name = "client_id", nullable = false)
     private Integer clientId;
 
-    @Column(name = "advert_id",nullable = false)
+    @Column(name = "advert_id", nullable = false)
     private Integer advertID;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = PRECISION_TEN, scale = SCALE_TWO)
     private BigDecimal price;
 }
