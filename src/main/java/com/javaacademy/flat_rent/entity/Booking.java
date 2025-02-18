@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking {
-    private static final int PRECISION_TEN = 10;
-    private static final int SCALE_TWO = 2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +36,6 @@ public class Booking {
     @Column(name = "advert_id", nullable = false)
     private Integer advertID;
 
-    @Column(nullable = false, precision = PRECISION_TEN, scale = SCALE_TWO)
+    @Column(nullable = false)
     private BigDecimal price;
 }

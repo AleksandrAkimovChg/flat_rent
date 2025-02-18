@@ -18,14 +18,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Advert {
-    private static final int PRECISION_TEN = 10;
-    private static final int SCALE_TWO = 2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, precision = PRECISION_TEN, scale = SCALE_TWO)
+    @Column(nullable = false)
     private BigDecimal price;
 
     @Column(name = "is_active", nullable = false)
@@ -34,6 +32,6 @@ public class Advert {
     @Column(name = "apartment_id", nullable = false)
     private Integer apartmentId;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(nullable = false)
     private String description;
 }
