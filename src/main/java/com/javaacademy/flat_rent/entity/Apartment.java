@@ -43,7 +43,7 @@ public class Apartment {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "room_count", nullable = false)
-    private ApartmentType rooms;
+    private ApartmentType apartmentType;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "apartment", fetch = FetchType.EAGER)
