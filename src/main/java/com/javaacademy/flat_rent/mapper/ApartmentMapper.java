@@ -11,9 +11,7 @@ public interface ApartmentMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "adverts", ignore = true)
-    @Mapping(target = "houseNumber", source = "house")
     Apartment toEntity(ApartmentDto dto);
 
-    @Mapping(target = "house", source = "houseNumber")
     ApartmentDto toDto(Apartment entity);
 }

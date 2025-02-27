@@ -5,5 +5,5 @@ import com.javaacademy.flat_rent.dto.BookingDtoRs;
 
 public interface BookingService {
 
-    BookingDtoRs createBooking(BookingDtoRq dto);
+    BookingDtoRs create(BookingDtoRq dto);
 }

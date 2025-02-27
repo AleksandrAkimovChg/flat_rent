@@ -4,7 +4,8 @@ import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Apartment;
-import com.javaacademy.flat_rent.service.apartment.ApartmentService;
+import com.javaacademy.flat_rent.exception.EntityNotFoundException;
+import com.javaacademy.flat_rent.repository.ApartmentRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -15,9 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
         componentModel = MappingConstants.ComponentModel.SPRING,
         uses = ApartmentMapper.class)
 public abstract class AdvertMapper {
+    public static final String APARTMENT_NOT_FOUND = "Не найдены апартаменты с таким id: %s";
 
     @Autowired
-    private ApartmentService apartmentService;
+    private ApartmentRepository apartmentRepository;
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookingList", ignore = true)
@@ -27,7 +29,9 @@ public abstract class AdvertMapper {
     public abstract AdvertDtoRs toDto(Advert entity);
 
     @Named("getApartment")
-    protected Apartment getApartment(Integer apartmentId) {
-        return apartmentService.findById(apartmentId);
+    protected Apartment getApartmentById(Integer apartmentId) {
+        return apartmentRepository.findById(apartmentId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        APARTMENT_NOT_FOUND.formatted(apartmentId)));
     }
 }

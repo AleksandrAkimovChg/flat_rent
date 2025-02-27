@@ -5,5 +5,5 @@ import java.time.LocalDate;
 
 public interface CalcBooking {
 
-    BigDecimal calcBookingAmount(LocalDate dateStart, LocalDate dateEnd, BigDecimal price);
+    BigDecimal calcBookingTotalPrice(LocalDate dateStart, LocalDate dateEnd, BigDecimal price);
 }

@@ -5,8 +5,9 @@ import com.javaacademy.flat_rent.dto.BookingDtoRs;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.entity.Client;
-import com.javaacademy.flat_rent.service.advert.AdvertService;
-import com.javaacademy.flat_rent.service.client.ClientService;
+import com.javaacademy.flat_rent.exception.EntityNotFoundException;
+import com.javaacademy.flat_rent.repository.AdvertRepository;
+import com.javaacademy.flat_rent.repository.ClientRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -18,11 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
         uses = {ClientMapper.class, AdvertMapper.class}
 )
 public abstract class BookingMapper {
+    public static final String CLIENT_NOT_FOUND = "Не найден клиент с таким id: %s";
+    public static final String ADVERT_NOT_FOUND = "Не найдено объявление с таким id: %s";
 
     @Autowired
-    private ClientService clientService;
+    private ClientRepository clientRepository;
     @Autowired
-    private AdvertService advertService;
+    private AdvertRepository advertRepository;
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", ignore = true)
@@ -34,11 +37,15 @@ public abstract class BookingMapper {
 
     @Named("getClient")
     protected Client getClient(Integer clientId) {
-        return clientService.findById(clientId);
+        return clientRepository.findById(clientId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        CLIENT_NOT_FOUND.formatted(clientId)));
     }
 
     @Named("getAdvert")
     protected Advert getAdvert(Integer advertId) {
-        return advertService.findById(advertId);
+        return advertRepository.findById(advertId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        ADVERT_NOT_FOUND.formatted(advertId)));
     }
 }

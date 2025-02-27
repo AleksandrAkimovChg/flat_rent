@@ -38,8 +38,8 @@ public class Apartment {
     @Column(nullable = false)
     private String street;
 
-    @Column(name = "house_number", nullable = false)
-    private String houseNumber;
+    @Column(nullable = false)
+    private String house;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "room_count", nullable = false)
