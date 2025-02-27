@@ -11,6 +11,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApartmentDto {
+
     private Integer id;
 
     @NonNull

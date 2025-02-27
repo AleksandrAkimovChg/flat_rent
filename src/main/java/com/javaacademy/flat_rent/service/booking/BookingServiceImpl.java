@@ -6,9 +6,7 @@ import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.exception.AdvertIsNotActiveException;
 import com.javaacademy.flat_rent.mapper.BookingMapper;
 import com.javaacademy.flat_rent.repository.BookingRepository;
-import com.javaacademy.flat_rent.service.advert.AdvertService;
 import com.javaacademy.flat_rent.service.calc.CalcBooking;
-import com.javaacademy.flat_rent.service.client.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     public static final String NOT_ACTIVE_ADVERT = "Выбрано неактивное объявление №: %s";
+
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
     private final CalcBooking calcBooking;

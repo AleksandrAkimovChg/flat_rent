@@ -9,6 +9,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientDto {
+
     private Integer id;
 
     @NonNull

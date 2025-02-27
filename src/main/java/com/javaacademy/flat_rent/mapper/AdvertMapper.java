@@ -21,7 +21,7 @@ public abstract class AdvertMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookingList", ignore = true)
-    @Mapping(target = "apartment", source = "apartment", qualifiedByName = "getApartment")
+    @Mapping(target = "apartment", source = "apartmentId", qualifiedByName = "getApartment")
     public abstract Advert toEntityWithRelation(AdvertDtoRq dto);
 
     public abstract AdvertDtoRs toDto(Advert entity);

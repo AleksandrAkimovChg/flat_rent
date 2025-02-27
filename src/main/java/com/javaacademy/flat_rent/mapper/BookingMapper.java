@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = ApartmentMapper.class
+        uses = {ClientMapper.class, AdvertMapper.class}
 )
 public abstract class BookingMapper {
 
@@ -26,8 +26,8 @@ public abstract class BookingMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", ignore = true)
-    @Mapping(target = "client", source = "client",  qualifiedByName = "getClient")
-    @Mapping(target = "advert", source = "advert",  qualifiedByName = "getAdvert")
+    @Mapping(target = "client", source = "clientId",  qualifiedByName = "getClient")
+    @Mapping(target = "advert", source = "advertId",  qualifiedByName = "getAdvert")
     public abstract Booking toEntityWithRelation(BookingDtoRq dto);
 
     public abstract BookingDtoRs toDto(Booking entity);

@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @Data
 public class BookingDtoRq {
+
     private Integer id;
 
     @NonNull

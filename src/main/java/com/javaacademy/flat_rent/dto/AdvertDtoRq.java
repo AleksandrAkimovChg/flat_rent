@@ -1,15 +1,14 @@
 package com.javaacademy.flat_rent.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
 
 @Data
-@AllArgsConstructor
 public class AdvertDtoRq {
+
     private Integer id;
 
     @NonNull

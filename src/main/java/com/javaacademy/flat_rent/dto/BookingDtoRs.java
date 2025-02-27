@@ -4,19 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class BookingDtoRs {
+
     private Integer id;
+
     private ClientDto client;
+
     private AdvertDtoRs advert;
 
     @JsonProperty("date_start")
-    private LocalDateTime dateStart;
+    private LocalDate dateStart;
 
     @JsonProperty("date_finish")
-    private LocalDateTime dateEnd;
+    private LocalDate dateEnd;
 
     @JsonProperty("result_price")
     private BigDecimal price;
