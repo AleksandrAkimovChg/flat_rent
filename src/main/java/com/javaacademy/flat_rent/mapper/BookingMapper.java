@@ -19,8 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
         uses = {ClientMapper.class, AdvertMapper.class}
 )
 public abstract class BookingMapper {
-    public static final String CLIENT_NOT_FOUND = "Не найден клиент с таким id: %s";
-    public static final String ADVERT_NOT_FOUND = "Не найдено объявление с таким id: %s";
+    private static final String CLIENT_NOT_FOUND = "Не найден клиент с таким id: %s";
+    private static final String ADVERT_NOT_FOUND = "Не найдено объявление с таким id: %s";
 
     @Autowired
     private ClientRepository clientRepository;

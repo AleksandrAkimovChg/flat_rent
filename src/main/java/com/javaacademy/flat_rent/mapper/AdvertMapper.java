@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
         componentModel = MappingConstants.ComponentModel.SPRING,
         uses = ApartmentMapper.class)
 public abstract class AdvertMapper {
-    public static final String APARTMENT_NOT_FOUND = "Не найдены апартаменты с таким id: %s";
+    private static final String APARTMENT_NOT_FOUND = "Не найдены апартаменты с таким id: %s";
 
     @Autowired
     private ApartmentRepository apartmentRepository;

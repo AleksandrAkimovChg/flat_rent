@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
-    public static final String NOT_ACTIVE_ADVERT = "Выбрано неактивное объявление №: %s";
-    public static final String BOOKING_START_DAY_LATER_DAY_END = "Дата начала брони позже даты окончания";
+    private static final String NOT_ACTIVE_ADVERT = "Выбрано неактивное объявление №: %s";
+    private static final String BOOKING_START_DAY_LATER_DAY_END = "Дата начала брони позже даты окончания";
 
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
