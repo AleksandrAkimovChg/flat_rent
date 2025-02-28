@@ -5,5 +5,5 @@ import com.javaacademy.flat_rent.dto.AdvertDtoRs;
 
 public interface AdvertService {
 
-    AdvertDtoRs createAdvice(AdvertDtoRq dto);
+    AdvertDtoRs create(AdvertDtoRq dto);
 }
