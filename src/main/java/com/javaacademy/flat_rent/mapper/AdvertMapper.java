@@ -4,13 +4,15 @@ import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Apartment;
-import com.javaacademy.flat_rent.exception.EntityNotFoundException;
+import com.javaacademy.flat_rent.exception.SubjectNotFoundException;
 import com.javaacademy.flat_rent.repository.ApartmentRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -28,10 +30,12 @@ public abstract class AdvertMapper {
 
     public abstract AdvertDtoRs toDto(Advert entity);
 
+    public abstract List<AdvertDtoRs> toDtos(List<Advert> entity);
+
     @Named("getApartment")
     protected Apartment getApartmentById(Integer apartmentId) {
         return apartmentRepository.findById(apartmentId)
-                .orElseThrow(() -> new EntityNotFoundException(
+                .orElseThrow(() -> new SubjectNotFoundException(
                         APARTMENT_NOT_FOUND.formatted(apartmentId)));
     }
 }

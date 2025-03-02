@@ -5,7 +5,7 @@ import com.javaacademy.flat_rent.dto.BookingDtoRs;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.entity.Client;
-import com.javaacademy.flat_rent.exception.EntityNotFoundException;
+import com.javaacademy.flat_rent.exception.SubjectNotFoundException;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
 import org.mapstruct.Mapper;
@@ -13,6 +13,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -29,23 +31,25 @@ public abstract class BookingMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", ignore = true)
-    @Mapping(target = "client", source = "clientId",  qualifiedByName = "getClient")
+    @Mapping(target = "client", source = "client.id",  qualifiedByName = "getClient")
     @Mapping(target = "advert", source = "advertId",  qualifiedByName = "getAdvert")
     public abstract Booking toEntityWithRelation(BookingDtoRq dto);
 
     public abstract BookingDtoRs toDto(Booking entity);
 
+    public abstract List<BookingDtoRs> toDtos(List<Booking> entities);
+
     @Named("getClient")
     protected Client getClient(Integer clientId) {
         return clientRepository.findById(clientId)
-                .orElseThrow(() -> new EntityNotFoundException(
+                .orElseThrow(() -> new SubjectNotFoundException(
                         CLIENT_NOT_FOUND.formatted(clientId)));
     }
 
     @Named("getAdvert")
     protected Advert getAdvert(Integer advertId) {
         return advertRepository.findById(advertId)
-                .orElseThrow(() -> new EntityNotFoundException(
+                .orElseThrow(() -> new SubjectNotFoundException(
                         ADVERT_NOT_FOUND.formatted(advertId)));
     }
 }

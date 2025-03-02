@@ -5,4 +5,6 @@ import com.javaacademy.flat_rent.dto.ClientDto;
 public interface ClientService {
 
     ClientDto create(ClientDto dto);
+
+    void delete(Integer id);
 }
