@@ -2,10 +2,10 @@ package com.javaacademy.flat_rent.controller;
 
 import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;
+import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
 import com.javaacademy.flat_rent.service.advert.AdvertService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +31,7 @@ public class AdvertController {
     }
 
     @GetMapping
-    public PageImpl<AdvertDtoRs> getAdverts(
+    public PageDto<AdvertDtoRs> getByCity(
             @RequestParam String city,
             @RequestParam(required = false) Integer pageNumber) {
         if (pageNumber == null) {
@@ -39,6 +39,6 @@ public class AdvertController {
         } else if (pageNumber < 1) {
             throw new PageNumberLessZeroException("Количество страниц должно быть больше 0");
         }
-        return  advertService.findByCity(city, pageNumber, DEFAULT_PAGE_SIZE);
+        return advertService.findByCity(city, pageNumber, DEFAULT_PAGE_SIZE);
     }
 }

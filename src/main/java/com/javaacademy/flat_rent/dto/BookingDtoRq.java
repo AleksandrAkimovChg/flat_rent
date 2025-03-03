@@ -12,7 +12,6 @@ public class BookingDtoRq {
     private Integer id;
 
     @NonNull
-    @JsonProperty("client_id")
     private ClientDto client;
 
     @NonNull

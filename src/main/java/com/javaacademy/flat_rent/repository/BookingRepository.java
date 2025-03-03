@@ -2,7 +2,7 @@ package com.javaacademy.flat_rent.repository;
 
 import com.javaacademy.flat_rent.entity.Booking;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,9 +12,16 @@ import java.time.LocalDate;
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("""
-            select count(*) = 0
-            from Booking as b
-            where (b.dateStart between :dateStart and :dateEnd) or (b.dateStart between :dateStart and :dateEnd)
+            select
+                count(*) = 0
+            from
+                Booking as b
+            where
+                (b.dateStart between :dateStart and :dateEnd)
+            or
+                (b.dateEnd between :dateStart and :dateEnd)
+            or
+                (:dateStart < b.dateStart and b.dateEnd < :dateEnd)
             """)
     boolean checkIsApartmentAvailable(LocalDate dateStart, LocalDate dateEnd);
 
@@ -28,12 +35,5 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
             """)
     void deleteInBulkByClientId(Integer clientId);
 
-    Page<Booking> findByClientEmail(String name, PageRequest pageRequest);
-
-    //TODO удалить
-    @Query("""
-            from Booking as b
-            where lower(b.client.email) = lower(:email)
-            """)
-    Page<Booking> findByClientEmail(String email);
+    Page<Booking> findByClientEmailIgnoreCase(String email, Pageable pageable);
 }

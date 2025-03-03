@@ -26,9 +26,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Transactional
     @Override
-    public void delete(Integer id) {
-//        bookingRepository.deleteInBulkByClientId(id);
-        bookingRepository.deleteByClientId(id);
-        clientRepository.deleteById(id);
+    public boolean delete(Integer clientId) {
+        bookingRepository.deleteByClientId(clientId);
+        clientRepository.deleteById(clientId);
+        return !clientRepository.existsById(clientId);
     }
 }

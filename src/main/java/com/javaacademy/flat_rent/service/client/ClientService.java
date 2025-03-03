@@ -6,5 +6,5 @@ public interface ClientService {
 
     ClientDto create(ClientDto dto);
 
-    void delete(Integer id);
+    boolean delete(Integer id);
 }

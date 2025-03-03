@@ -2,13 +2,16 @@ package com.javaacademy.flat_rent.service.advert;
 
 import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;
+import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.mapper.AdvertMapper;
+import com.javaacademy.flat_rent.mapper.PageMapper;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     private final AdvertMapper advertMapper;
     private final AdvertRepository advertRepository;
+    private final PageMapper pageImplMapper;
 
     @Override
     public AdvertDtoRs create(AdvertDtoRq dto) {
@@ -29,12 +33,14 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public PageImpl<AdvertDtoRs> findByCity(String city, int pageNumber, int pageSize) {
+    public PageDto<AdvertDtoRs> findByCity(String city, int pageNumber, int pageSize) {
         Sort price = Sort.by(Sort.Direction.DESC, "price");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, price);
-        Page<Advert> cityPage = advertRepository.findByCity(city, pageRequest);
-        List<Advert> advertList = cityPage.getContent();
-        List<AdvertDtoRs> content = advertMapper.toDtos(advertList);
-        return new PageImpl<>(content, pageRequest, cityPage.getTotalElements());
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, price);
+        Page<Advert> cityPage = advertRepository.findByApartmentCityIgnoreCase(city, pageRequest);
+        List<AdvertDtoRs> content = advertMapper.toDtos(cityPage.getContent());
+        return pageImplMapper.toAdvertDtoRs(new PageImpl<>(
+                content,
+                pageRequest,
+                cityPage.getTotalElements()));
     }
 }

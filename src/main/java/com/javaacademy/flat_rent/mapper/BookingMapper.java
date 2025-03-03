@@ -5,7 +5,7 @@ import com.javaacademy.flat_rent.dto.BookingDtoRs;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.entity.Client;
-import com.javaacademy.flat_rent.exception.SubjectNotFoundException;
+import com.javaacademy.flat_rent.exception.NotFoundException;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
 import org.mapstruct.Mapper;
@@ -42,14 +42,14 @@ public abstract class BookingMapper {
     @Named("getClient")
     protected Client getClient(Integer clientId) {
         return clientRepository.findById(clientId)
-                .orElseThrow(() -> new SubjectNotFoundException(
+                .orElseThrow(() -> new NotFoundException(
                         CLIENT_NOT_FOUND.formatted(clientId)));
     }
 
     @Named("getAdvert")
     protected Advert getAdvert(Integer advertId) {
         return advertRepository.findById(advertId)
-                .orElseThrow(() -> new SubjectNotFoundException(
+                .orElseThrow(() -> new NotFoundException(
                         ADVERT_NOT_FOUND.formatted(advertId)));
     }
 }

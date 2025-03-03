@@ -3,5 +3,5 @@ package com.javaacademy.flat_rent.exception;
 import lombok.experimental.StandardException;
 
 @StandardException
-public class SubjectNotFoundException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 }

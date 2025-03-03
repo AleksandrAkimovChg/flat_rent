@@ -1,5 +1,4 @@
-Для запуска проекта выбери один из профилей:
-* SPRING_PROFILES_ACTIVE=prod
+Для запуска проекта для локальной отладки профиль:
 * SPRING_PROFILES_ACTIVE=local
 
 API сервиса в нотации OpenApi 3.0.1 (Swagger):
