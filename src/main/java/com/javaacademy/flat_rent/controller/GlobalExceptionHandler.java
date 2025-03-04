@@ -1,5 +1,6 @@
 package com.javaacademy.flat_rent.controller;
 
+import com.javaacademy.flat_rent.exception.AdvertIsNotActiveException;
 import com.javaacademy.flat_rent.exception.BookingIsNotAvailableException;
 import com.javaacademy.flat_rent.exception.BookingStartDayLaterDayEndException;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
@@ -25,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({
             BookingIsNotAvailableException.class,
             BookingStartDayLaterDayEndException.class,
-            BookingStartDayLaterDayEndException.class
+            AdvertIsNotActiveException.class
     })
     public ResponseEntity<String> conflictException(RuntimeException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);

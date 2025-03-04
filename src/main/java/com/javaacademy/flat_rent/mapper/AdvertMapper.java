@@ -41,5 +41,5 @@ public abstract class AdvertMapper {
                         APARTMENT_NOT_FOUND.formatted(apartmentId)));
     }
 
-    public abstract PageDto<AdvertDtoRs> toPageAdvertDtoRs(Page<Advert> page);
+    public abstract PageDto<AdvertDtoRs> toPage(Page<Advert> page);
 }

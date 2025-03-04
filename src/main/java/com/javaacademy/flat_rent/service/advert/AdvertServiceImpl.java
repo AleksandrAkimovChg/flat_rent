@@ -32,6 +32,6 @@ public class AdvertServiceImpl implements AdvertService {
         Sort price = Sort.by(Sort.Direction.DESC, "price");
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, price);
         Page<Advert> cityPage = advertRepository.findByApartmentCityIgnoreCase(city, pageRequest);
-        return advertMapper.toPageAdvertDtoRs(cityPage);
+        return advertMapper.toPage(cityPage);
     }
 }

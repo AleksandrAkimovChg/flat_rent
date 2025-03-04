@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdvertController {
     private static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int DEFAULT_PAGE_SIZE = 10;
+    public static final String PAGE_NUMBER_LESS_ZERO = "Количество страниц должно быть больше 0.";
 
     private final AdvertService advertService;
 
@@ -37,7 +38,7 @@ public class AdvertController {
         if (pageNumber == null) {
             return advertService.findByCity(city, DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
         } else if (pageNumber < 1) {
-            throw new PageNumberLessZeroException("Количество страниц должно быть больше 0");
+            throw new PageNumberLessZeroException(PAGE_NUMBER_LESS_ZERO);
         }
         return advertService.findByCity(city, pageNumber, DEFAULT_PAGE_SIZE);
     }

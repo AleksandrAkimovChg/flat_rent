@@ -55,5 +55,5 @@ public abstract class BookingMapper {
                         ADVERT_NOT_FOUND.formatted(advertId)));
     }
 
-    public abstract PageDto<BookingDtoRs> toPageBookingDtoRs(Page<Booking> page);
+    public abstract PageDto<BookingDtoRs> toPage(Page<Booking> page);
 }

@@ -2,14 +2,11 @@ package com.javaacademy.flat_rent.controller;
 
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRs;
-import com.javaacademy.flat_rent.dto.ClientDto;
 import com.javaacademy.flat_rent.dto.PageDto;
-import com.javaacademy.flat_rent.exception.NotFoundException;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
-import com.javaacademy.flat_rent.repository.ClientRepository;
 import com.javaacademy.flat_rent.service.booking.BookingService;
-import com.javaacademy.flat_rent.service.client.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,23 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookingController {
     private static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int PAGE_SIZE_TWENTY = 20;
-    public static final String CLIENT_NOT_FOUND = "Нет клиента с таким id: %s";
     public static final String NUMBER_OF_PAGE_ZERO_OR_LESS = "Количество страниц должно быть больше 0";
-
     private final BookingService bookingService;
-    private final ClientService clientService;
-    private final ClientRepository clientRepository;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookingDtoRs create(@RequestBody BookingDtoRq bookingDtoRq) {
-        ClientDto clientDto = bookingDtoRq.getClient();
-        if (clientDto.getId() == null) {
-            clientService.create(clientDto);
-        } else if (!clientRepository.existsById(clientDto.getId())) {
-            throw new NotFoundException(
-                            CLIENT_NOT_FOUND.formatted((bookingDtoRq.getClient().getId())));
-        }
         return bookingService.create(bookingDtoRq);
     }
 
