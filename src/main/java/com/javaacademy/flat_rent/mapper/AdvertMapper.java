@@ -2,6 +2,7 @@ package com.javaacademy.flat_rent.mapper;
 
 import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;
+import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Apartment;
 import com.javaacademy.flat_rent.exception.NotFoundException;
@@ -11,6 +12,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -38,4 +40,6 @@ public abstract class AdvertMapper {
                 .orElseThrow(() -> new NotFoundException(
                         APARTMENT_NOT_FOUND.formatted(apartmentId)));
     }
+
+    public abstract PageDto<AdvertDtoRs> toPageAdvertDtoRs(Page<Advert> page);
 }

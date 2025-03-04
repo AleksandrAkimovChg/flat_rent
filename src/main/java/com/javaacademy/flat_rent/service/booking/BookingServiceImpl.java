@@ -9,19 +9,16 @@ import com.javaacademy.flat_rent.exception.AdvertIsNotActiveException;
 import com.javaacademy.flat_rent.exception.BookingIsNotAvailableException;
 import com.javaacademy.flat_rent.exception.BookingStartDayLaterDayEndException;
 import com.javaacademy.flat_rent.mapper.BookingMapper;
-import com.javaacademy.flat_rent.mapper.PageMapper;
 import com.javaacademy.flat_rent.repository.BookingRepository;
 import com.javaacademy.flat_rent.service.calc.CalcBooking;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +30,6 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
     private final CalcBooking calcBooking;
-    private final PageMapper pageMapper;
 
     @Override
     @Transactional
@@ -79,10 +75,6 @@ public class BookingServiceImpl implements BookingService {
     public PageDto<BookingDtoRs> findByEmail(String email, int pageNumber, int pageSize) {
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         Page<Booking> bookingPage = bookingRepository.findByClientEmailIgnoreCase(email, pageRequest);
-        List<BookingDtoRs> content = bookingMapper.toDtos(bookingPage.getContent());
-        return pageMapper.toBookingDtoRs(new PageImpl<>(
-                content,
-                pageRequest,
-                bookingPage.getTotalElements()));
+        return bookingMapper.toPageBookingDtoRs(bookingPage);
     }
 }
