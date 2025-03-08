@@ -11,7 +11,7 @@ public class CalcBookingImpl implements CalcBooking {
 
     @Override
     public BigDecimal calcBookingTotalPrice(LocalDate dateStart, LocalDate dateEnd, BigDecimal price) {
-        long days = ChronoUnit.DAYS.between(dateStart, dateEnd.plusDays(1));
+        long days = ChronoUnit.DAYS.between(dateStart, dateEnd);
         return price.multiply(BigDecimal.valueOf(days));
     }
 }

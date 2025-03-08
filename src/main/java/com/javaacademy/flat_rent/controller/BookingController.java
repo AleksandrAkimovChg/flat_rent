@@ -6,7 +6,6 @@ import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
 import com.javaacademy.flat_rent.service.booking.BookingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

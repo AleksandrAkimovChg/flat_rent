@@ -79,6 +79,7 @@ public class BookingServiceImpl implements BookingService {
             ));
         }
         boolean isAvailable = bookingRepository.checkIsApartmentAvailable(
+                booking.getAdvert().getApartment().getId(),
                 booking.getDateStart(),
                 booking.getDateEnd());
         if (!isAvailable) {
