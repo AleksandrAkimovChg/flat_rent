@@ -15,13 +15,20 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
             select
                 count(*) = 0
             from
-                Booking as b
-            where b.apartment.id = :apartmentId
+                Booking b
+            join
+                b.advert ad
+            join
+                ad.apartment ap
+            where
+                ap.id = :apartmentId
+            and (
                 (:dateStart > b.dateStart and :dateStart < b.dateEnd)
             or
                 (:dateEnd > b.dateStart and :dateEnd < b.dateEnd)
             or
                 (:dateStart < b.dateStart and b.dateEnd < :dateEnd)
+                )
             """)
     boolean checkIsApartmentAvailable(Integer apartmentId, LocalDate dateStart, LocalDate dateEnd);
 

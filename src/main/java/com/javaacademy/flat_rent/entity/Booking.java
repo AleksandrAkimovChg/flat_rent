@@ -1,6 +1,5 @@
 package com.javaacademy.flat_rent.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

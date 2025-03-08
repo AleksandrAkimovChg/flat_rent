@@ -62,7 +62,6 @@ public class BookingControllerTest {
     @Autowired
     private ClientTestRepository clientTestRepository;
 
-
     private final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBasePath(BASE_PATH)
             .setContentType(ContentType.JSON)
@@ -225,7 +224,7 @@ public class BookingControllerTest {
 
     @Test
     @DisplayName("Успешное получение списка бронирований по email клиента")
-    @Sql(value = {"classpath:sql/create-many-booking.sql"})
+    @Sql(value = {"classpath:sql/create-many-bookings-test.sql"})
     public void successGetPageWithDtoAndPriceDesc() {
         PageDto<BookingDtoRs> response = RestAssured.given(requestSpec)
                 .queryParam(QUERY_PARAM, QUERY_PARAM_VALUE)

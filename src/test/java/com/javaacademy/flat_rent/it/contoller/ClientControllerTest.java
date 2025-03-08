@@ -32,7 +32,6 @@ public class ClientControllerTest {
     @Autowired
     private ClientRepository clientRepository;
 
-
     private final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBasePath(BASE_PATH)
             .setContentType(ContentType.JSON)
@@ -42,10 +41,9 @@ public class ClientControllerTest {
             .log(LogDetail.ALL)
             .build();
 
-
     @Test
     @DisplayName("Успешное удаление клиента с его бронированиями")
-    @Sql(value = {"classpath:sql/create-many-booking.sql"})
+    @Sql(value = {"classpath:sql/create-many-bookings-test.sql"})
     public void successDeleteClientWithBookings() {
         Client firstAdvert = clientTestRepository.findFirstClient().orElseThrow();
         RestAssured.given(requestSpec)

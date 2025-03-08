@@ -1,6 +1,5 @@
 package com.javaacademy.flat_rent.mapper;
 
-
 import com.javaacademy.flat_rent.dto.ClientDto;
 import com.javaacademy.flat_rent.entity.Client;
 import org.mapstruct.Mapper;
