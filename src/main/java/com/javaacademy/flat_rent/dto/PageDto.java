@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class PageDto<T> {
-    @ArraySchema(schema = @Schema(description = "Контент содержание страницы",
+    @ArraySchema(schema = @Schema(description = "Контент (содержание) страницы",
             type = "object",
             oneOf = {AdvertDtoRs.class, BookingDtoRs.class}
     ))
