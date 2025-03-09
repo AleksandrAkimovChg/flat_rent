@@ -36,6 +36,6 @@ public class Client {
     private String email;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "client", fetchType = )
+    @OneToMany(mappedBy = "client")
     private List<Booking> bookingList;
 }
