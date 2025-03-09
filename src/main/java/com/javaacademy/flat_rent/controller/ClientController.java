@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
 
     public static final String TRY_IT_LATER = "Повторите попытку позднее.";
+    public static final int UNKNOWN_ERROR_CODE = 520;
     private final ClientService clientService;
 
     @Operation(summary = "Удаление записи о клиенте",
@@ -33,8 +35,8 @@ public class ClientController {
             content = {@Content(schema = @Schema())}
     )
     @ApiResponse(
-            responseCode = "409",
-            description = "Не успешное удаление записи о клиенте. Попробуйте позже",
+            responseCode = "500",
+            description = "Неуспешное удаление записи о клиенте. Попробуйте позже",
             content = {
                     @Content(
                             mediaType = MediaType.TEXT_PLAIN_VALUE,
@@ -48,6 +50,6 @@ public class ClientController {
         if (clientService.delete(id)) {
             return ResponseEntity.status(HttpStatus.OK).build();
         }
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(TRY_IT_LATER);
+        return ResponseEntity.status(HttpStatusCode.valueOf(UNKNOWN_ERROR_CODE)).body(TRY_IT_LATER);
     }
 }

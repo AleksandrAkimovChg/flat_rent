@@ -11,8 +11,6 @@ import com.javaacademy.flat_rent.mapper.AdvertMapper;
 import com.javaacademy.flat_rent.mapper.ClientMapper;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
 import com.javaacademy.flat_rent.service.ClientService;
-import com.javaacademy.flat_rent.test_repository.AdvertTestRepository;
-import com.javaacademy.flat_rent.test_repository.ClientTestRepository;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -21,7 +19,9 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import lombok.RequiredArgsConstructor;
 import org.hamcrest.Matchers;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BookingControllerTest {
 
     private static final String BASE_PATH = "/api/v1/booking";
@@ -48,6 +49,10 @@ public class BookingControllerTest {
     public static final int DEFAULT_NUMBER_OF_ELEMENTS_ON_PAGE = 20;
     public static final int COUNT_TOTAL_PAGE_FOR_TEST = 1;
     public static final int COUNT_TOTAL_ELEMENTS_FOR_TEST = 20;
+    public static final String FROM_CLIENT_LIMIT_1 = "from Client c order by id limit 1";
+    public static final String FROM_ADVERT_LIMIT_1 = "from Advert as a order by id limit 1";
+
+    private final SessionFactory sessionFactory;
 
     @Autowired
     private AdvertRepository advertRepository;
@@ -57,10 +62,6 @@ public class BookingControllerTest {
     private AdvertMapper advertMapper;
     @Autowired
     private ClientMapper clientMapper;
-    @Autowired
-    private AdvertTestRepository advertTestRepository;
-    @Autowired
-    private ClientTestRepository clientTestRepository;
 
     private final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBasePath(BASE_PATH)
@@ -81,7 +82,9 @@ public class BookingControllerTest {
                 "Имя %s ".formatted(timestemp),
                 "email@test.ru %s ".formatted(timestemp)
         );
-        Advert expectedAdvert = advertTestRepository.findFirstAdvert().orElseThrow();
+        Advert expectedAdvert = sessionFactory.openSession()
+                .createQuery(FROM_ADVERT_LIMIT_1, Advert.class).getSingleResult();
+
         BookingDtoRq request = new BookingDtoRq(
                 clientDto,
                 expectedAdvert.getId(),
@@ -116,8 +119,12 @@ public class BookingControllerTest {
     @DisplayName("Успешное бронирование с существующим клиентом")
     @Sql(value = {"classpath:sql/clear-booking.sql"})
     public void successCreateBookingClientExist() {
-        Client expectedClient = clientTestRepository.findFirstClient().orElseThrow();
-        Advert expectedAdvert = advertTestRepository.findFirstAdvert().orElseThrow();
+        Client expectedClient = sessionFactory.openSession()
+                .createQuery(FROM_CLIENT_LIMIT_1, Client.class)
+                .getSingleResult();
+
+        Advert expectedAdvert = sessionFactory.openSession()
+                .createQuery(FROM_ADVERT_LIMIT_1, Advert.class).getSingleResult();
         ClientDto expectedClientDto = clientMapper.toDto(expectedClient);
         BookingDtoRq request = new BookingDtoRq(
                 expectedClientDto,
@@ -153,8 +160,11 @@ public class BookingControllerTest {
     public void failureCreateBookingWhenBookingExist() {
         String dateStart = "2025-10-05";
         String dateEnd = "2025-10-06";
-        Client expectedClient = clientTestRepository.findFirstClient().orElseThrow();
-        Advert expectedAdvert = advertTestRepository.findFirstAdvert().orElseThrow();
+        Client expectedClient = sessionFactory.openSession()
+                .createQuery(FROM_CLIENT_LIMIT_1, Client.class)
+                .getSingleResult();
+        Advert expectedAdvert = sessionFactory.openSession()
+                .createQuery(FROM_ADVERT_LIMIT_1, Advert.class).getSingleResult();
         ClientDto expectedClientDto = clientMapper.toDto(expectedClient);
         BookingDtoRq request = new BookingDtoRq(
                 expectedClientDto,
@@ -178,8 +188,11 @@ public class BookingControllerTest {
     public void failureCreateBookingWhenLastDayBookingExist() {
         String dateStart = "2025-09-29";
         String dateEnd = "2025-10-02";
-        Client expectedClient = clientTestRepository.findFirstClient().orElseThrow();
-        Advert expectedAdvert = advertTestRepository.findFirstAdvert().orElseThrow();
+        Client expectedClient = sessionFactory.openSession()
+                .createQuery(FROM_CLIENT_LIMIT_1, Client.class)
+                .getSingleResult();
+        Advert expectedAdvert = sessionFactory.openSession()
+                .createQuery(FROM_ADVERT_LIMIT_1, Advert.class).getSingleResult();
         ClientDto expectedClientDto = clientMapper.toDto(expectedClient);
         BookingDtoRq request = new BookingDtoRq(
                 expectedClientDto,
@@ -203,8 +216,11 @@ public class BookingControllerTest {
     public void failureCreateBookingWhenFirstDayBookingExist() {
         String dateStart = "2025-10-09";
         String dateEnd = "2025-10-11";
-        Client expectedClient = clientTestRepository.findFirstClient().orElseThrow();
-        Advert expectedAdvert = advertTestRepository.findFirstAdvert().orElseThrow();
+        Client expectedClient = sessionFactory.openSession()
+                .createQuery(FROM_CLIENT_LIMIT_1, Client.class)
+                .getSingleResult();
+        Advert expectedAdvert = sessionFactory.openSession()
+                .createQuery(FROM_ADVERT_LIMIT_1, Advert.class).getSingleResult();
         ClientDto expectedClientDto = clientMapper.toDto(expectedClient);
         BookingDtoRq request = new BookingDtoRq(
                 expectedClientDto,

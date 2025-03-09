@@ -3,7 +3,6 @@ package com.javaacademy.flat_rent.it.contoller;
 import com.javaacademy.flat_rent.entity.Client;
 import com.javaacademy.flat_rent.repository.BookingRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
-import com.javaacademy.flat_rent.test_repository.ClientTestRepository;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -11,7 +10,7 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,19 +22,16 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientControllerTest {
 
     private static final String BASE_PATH = "/api/v1/client";
+    public static final String FROM_CLIENT_LIMIT_1 = "from Client c order by id limit 1";
 
-    @Autowired
     private final SessionFactory sessionFactory;
-    @Autowired
-    private final EntityManager entityManager;
 
     @Autowired
     private BookingRepository bookingRepository;
-    @Autowired
-    private ClientTestRepository clientTestRepository;
     @Autowired
     private ClientRepository clientRepository;
 
@@ -52,16 +48,15 @@ public class ClientControllerTest {
     @DisplayName("Успешное удаление клиента с его бронированиями")
     @Sql(value = {"classpath:sql/create-many-bookings-test.sql"})
     public void successDeleteClientWithBookings() {
-        Client firstAdvert = clientTestRepository.findFirstClient().orElseThrow();
-
-        sessionFactory.createQuery();
+        Integer advertId = sessionFactory.openSession()
+                .createQuery(FROM_CLIENT_LIMIT_1, Client.class)
+                .getSingleResult().getId();
 
         RestAssured.given(requestSpec)
-                .delete(firstAdvert.getId().toString())
+                .delete(advertId.toString())
                 .then()
                 .spec(responseSpec)
                 .statusCode(HttpStatus.OK.value());
 
-        assertFalse(clientRepository.existsById(firstAdvert.getId()));
-    }
+        assertFalse(clientRepository.existsById(advertId));    }
 }
