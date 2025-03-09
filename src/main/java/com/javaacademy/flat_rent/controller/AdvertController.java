@@ -4,7 +4,7 @@ import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;
 import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
-import com.javaacademy.flat_rent.service.advert.AdvertService;
+import com.javaacademy.flat_rent.service.AdvertService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Advert controller")
+@Tag(name = "Advert controller", description = "API для внесения записи об объявлениях о посуточной аренде и "
+        + "поиска объявлений по названию города.")
 @RestController
 @RequestMapping("/api/v1/advert")
 @RequiredArgsConstructor

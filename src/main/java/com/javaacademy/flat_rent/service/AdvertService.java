@@ -1,4 +1,4 @@
-package com.javaacademy.flat_rent.service.advert;
+package com.javaacademy.flat_rent.service;
 
 import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRs;

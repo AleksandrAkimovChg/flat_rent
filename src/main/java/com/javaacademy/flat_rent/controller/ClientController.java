@@ -1,6 +1,6 @@
 package com.javaacademy.flat_rent.controller;
 
-import com.javaacademy.flat_rent.service.client.ClientService;
+import com.javaacademy.flat_rent.service.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Client controller")
+@Tag(name = "Client controller", description = "API для удаления в бд записи клиенте")
 @RestController
 @RequestMapping("/api/v1/client")
 @RequiredArgsConstructor

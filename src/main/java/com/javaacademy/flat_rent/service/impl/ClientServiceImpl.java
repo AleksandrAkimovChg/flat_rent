@@ -1,10 +1,11 @@
-package com.javaacademy.flat_rent.service.client;
+package com.javaacademy.flat_rent.service.impl;
 
 import com.javaacademy.flat_rent.dto.ClientDto;
 import com.javaacademy.flat_rent.entity.Client;
 import com.javaacademy.flat_rent.mapper.ClientMapper;
 import com.javaacademy.flat_rent.repository.BookingRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
+import com.javaacademy.flat_rent.service.ClientService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

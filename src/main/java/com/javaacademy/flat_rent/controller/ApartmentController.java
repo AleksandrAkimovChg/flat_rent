@@ -1,7 +1,7 @@
 package com.javaacademy.flat_rent.controller;
 
 import com.javaacademy.flat_rent.dto.ApartmentDto;
-import com.javaacademy.flat_rent.service.apartment.ApartmentService;
+import com.javaacademy.flat_rent.service.ApartmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Apartment controller")
+@Tag(name = "Apartment controller", description = "API для внесения в бд записи об апартаментах")
 @RestController
 @RequestMapping("/api/v1/apartment")
 @RequiredArgsConstructor

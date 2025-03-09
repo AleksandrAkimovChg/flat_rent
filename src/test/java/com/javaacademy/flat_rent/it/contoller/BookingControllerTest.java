@@ -10,7 +10,7 @@ import com.javaacademy.flat_rent.entity.Client;
 import com.javaacademy.flat_rent.mapper.AdvertMapper;
 import com.javaacademy.flat_rent.mapper.ClientMapper;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
-import com.javaacademy.flat_rent.service.client.ClientService;
+import com.javaacademy.flat_rent.service.ClientService;
 import com.javaacademy.flat_rent.test_repository.AdvertTestRepository;
 import com.javaacademy.flat_rent.test_repository.ClientTestRepository;
 import io.restassured.RestAssured;
@@ -34,7 +34,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static com.javaacademy.flat_rent.it.contoller.AdvertControllerTest.DEFAULT_PAGE;
-import static com.javaacademy.flat_rent.service.booking.BookingServiceImpl.APARTMENT_IS_NOT_AVAILABLE;
+import static com.javaacademy.flat_rent.service.impl.BookingServiceImpl.APARTMENT_IS_NOT_AVAILABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

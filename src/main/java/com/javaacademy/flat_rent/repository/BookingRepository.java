@@ -12,23 +12,14 @@ import java.time.LocalDate;
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("""
-            select
-                count(*) = 0
-            from
-                Booking b
-            join
-                b.advert ad
-            join
-                ad.apartment ap
-            where
-                ap.id = :apartmentId
-            and (
-                (:dateStart > b.dateStart and :dateStart < b.dateEnd)
-            or
-                (:dateEnd > b.dateStart and :dateEnd < b.dateEnd)
-            or
-                (:dateStart < b.dateStart and b.dateEnd < :dateEnd)
-                )
+            select count(*) = 0
+            from Booking b
+                join b.advert ad
+                join ad.apartment ap
+            where ap.id = :apartmentId
+                and ((:dateStart > b.dateStart and :dateStart < b.dateEnd)
+                or (:dateEnd > b.dateStart and :dateEnd < b.dateEnd)
+                or (:dateStart < b.dateStart and b.dateEnd < :dateEnd))
             """)
     boolean checkIsApartmentAvailable(Integer apartmentId, LocalDate dateStart, LocalDate dateEnd);
 

@@ -1,4 +1,4 @@
-package com.javaacademy.flat_rent.service.booking;
+package com.javaacademy.flat_rent.service;
 
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRs;

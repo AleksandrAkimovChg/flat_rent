@@ -11,6 +11,8 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import jakarta.persistence.EntityManager;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ClientControllerTest {
 
     private static final String BASE_PATH = "/api/v1/client";
+
+    @Autowired
+    private final SessionFactory sessionFactory;
+    @Autowired
+    private final EntityManager entityManager;
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -46,6 +53,9 @@ public class ClientControllerTest {
     @Sql(value = {"classpath:sql/create-many-bookings-test.sql"})
     public void successDeleteClientWithBookings() {
         Client firstAdvert = clientTestRepository.findFirstClient().orElseThrow();
+
+        sessionFactory.createQuery();
+
         RestAssured.given(requestSpec)
                 .delete(firstAdvert.getId().toString())
                 .then()

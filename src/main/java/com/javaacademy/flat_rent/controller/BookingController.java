@@ -4,7 +4,7 @@ import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRs;
 import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
-import com.javaacademy.flat_rent.service.booking.BookingService;
+import com.javaacademy.flat_rent.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Booking controller")
+@Tag(name = "Booking controller", description = "API для внесения в бд записи о бронировании")
 @RestController
 @RequestMapping("/api/v1/booking")
 @RequiredArgsConstructor

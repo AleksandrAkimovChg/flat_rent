@@ -26,20 +26,7 @@ public class SwaggerConfig {
                         + "квартиры")
                 .contact(myContact);
 
-        List<Tag> tags = new ArrayList<>(List.of(
-                new Tag().name("Apartment controller")
-                        .description("API для внесения в бд записи об апартаментах."),
-                new Tag().name("Advert controller")
-                        .description("API для внесения записи об объявлениях о посуточной аренде и поиска объявлений "
-                                + "по названию города."),
-                new Tag().name("Client controller")
-                        .description("API для удаления в бд записи клиенте."),
-                new Tag().name("Booking controller")
-                        .description("API для внесения в бд записи о бронировании.")
-        ));
-
         return new OpenAPI()
-                .info(info)
-                .tags(tags);
+                .info(info);
     }
 }

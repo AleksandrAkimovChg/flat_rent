@@ -5,7 +5,7 @@ import com.javaacademy.flat_rent.dto.AdvertDtoRs;
 import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Apartment;
-import com.javaacademy.flat_rent.exception.NotFoundException;
+import com.javaacademy.flat_rent.exception.EntityNotFoundException;
 import com.javaacademy.flat_rent.repository.ApartmentRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -37,7 +37,7 @@ public abstract class AdvertMapper {
     @Named("getApartment")
     protected Apartment getApartmentById(Integer apartmentId) {
         return apartmentRepository.findById(apartmentId)
-                .orElseThrow(() -> new NotFoundException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         APARTMENT_NOT_FOUND.formatted(apartmentId)));
     }
 

@@ -13,7 +13,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApartmentDto {
-    @Schema(description = "id ", example = "null", accessMode = Schema.AccessMode.READ_ONLY)
+    @Schema(description = "id ", accessMode = Schema.AccessMode.READ_ONLY)
     private Integer id;
 
     @Schema(description = "Город", example = "Москва")

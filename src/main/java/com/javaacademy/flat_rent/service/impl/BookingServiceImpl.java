@@ -1,4 +1,4 @@
-package com.javaacademy.flat_rent.service.booking;
+package com.javaacademy.flat_rent.service.impl;
 
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRs;
@@ -8,12 +8,13 @@ import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.exception.AdvertIsNotActiveException;
 import com.javaacademy.flat_rent.exception.BookingIsNotAvailableException;
 import com.javaacademy.flat_rent.exception.BookingStartDayLaterDayEndException;
-import com.javaacademy.flat_rent.exception.NotFoundException;
+import com.javaacademy.flat_rent.exception.EntityNotFoundException;
 import com.javaacademy.flat_rent.mapper.BookingMapper;
 import com.javaacademy.flat_rent.repository.BookingRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
-import com.javaacademy.flat_rent.service.calc.CalcBooking;
-import com.javaacademy.flat_rent.service.client.ClientService;
+import com.javaacademy.flat_rent.service.BookingService;
+import com.javaacademy.flat_rent.service.CalcBooking;
+import com.javaacademy.flat_rent.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,7 +58,7 @@ public class BookingServiceImpl implements BookingService {
     private void checkIsClientExistAndCreateNewClient(BookingDtoRq dto) {
         Integer clientId = dto.getClient().getId();
         if (Objects.nonNull(clientId) && !clientRepository.existsById(clientId)) {
-            throw new NotFoundException(
+            throw new EntityNotFoundException(
                     CLIENT_NOT_FOUND.formatted((dto.getClient().getId())));
         } else if (Objects.isNull(clientId)) {
             dto.setClient(clientService.create(dto.getClient()));

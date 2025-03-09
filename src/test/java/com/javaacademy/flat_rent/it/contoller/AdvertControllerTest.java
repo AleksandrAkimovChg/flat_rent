@@ -5,7 +5,7 @@ import com.javaacademy.flat_rent.dto.AdvertDtoRs;
 import com.javaacademy.flat_rent.dto.ApartmentDto;
 import com.javaacademy.flat_rent.dto.PageDto;
 import com.javaacademy.flat_rent.entity.ApartmentType;
-import com.javaacademy.flat_rent.service.apartment.ApartmentService;
+import com.javaacademy.flat_rent.service.ApartmentService;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;

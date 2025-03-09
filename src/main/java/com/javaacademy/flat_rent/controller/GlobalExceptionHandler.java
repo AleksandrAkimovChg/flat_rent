@@ -4,7 +4,7 @@ import com.javaacademy.flat_rent.exception.AdvertIsNotActiveException;
 import com.javaacademy.flat_rent.exception.BookingIsNotAvailableException;
 import com.javaacademy.flat_rent.exception.BookingStartDayLaterDayEndException;
 import com.javaacademy.flat_rent.exception.PageNumberLessZeroException;
-import com.javaacademy.flat_rent.exception.NotFoundException;
+import com.javaacademy.flat_rent.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,8 +18,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<String> notFoundException(NotFoundException e) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> notFoundException(EntityNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
