@@ -1,5 +1,6 @@
 server:
-  port: 8081
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/flat_rent
@@ -16,8 +17,12 @@ spring:
 
 logging:
   level:
+    root: DEBUG
     org:
       hibernate:
         orm:
           jdbc:
             bind: TRACE
+    com:
+      javaacademy:
+        flat_rent: DEBUG

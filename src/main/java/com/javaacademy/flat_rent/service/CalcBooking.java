@@ -1,4 +1,4 @@
-package com.javaacademy.flat_rent.service.calc;
+package com.javaacademy.flat_rent.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

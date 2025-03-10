@@ -1,4 +1,4 @@
-package com.javaacademy.flat_rent.service.apartment;
+package com.javaacademy.flat_rent.service;
 
 import com.javaacademy.flat_rent.dto.ApartmentDto;
 

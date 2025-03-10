@@ -1,5 +1,6 @@
-package com.javaacademy.flat_rent.service.calc;
+package com.javaacademy.flat_rent.service.impl;
 
+import com.javaacademy.flat_rent.service.CalcBooking;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

@@ -1,9 +1,10 @@
-package com.javaacademy.flat_rent.service.apartment;
+package com.javaacademy.flat_rent.service.impl;
 
 import com.javaacademy.flat_rent.dto.ApartmentDto;
 import com.javaacademy.flat_rent.entity.Apartment;
 import com.javaacademy.flat_rent.mapper.ApartmentMapper;
 import com.javaacademy.flat_rent.repository.ApartmentRepository;
+import com.javaacademy.flat_rent.service.ApartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

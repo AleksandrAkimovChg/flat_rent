@@ -1,14 +1,15 @@
 server:
-  port: 8081
+  port: 8080
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/flat_rent
+    url: jdbc:postgresql://localhost:5432/flat_rent?currentSchema=test
     username: postgres
     password: 123456
     driver: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -16,8 +17,12 @@ spring:
 
 logging:
   level:
+    root: DEBUG
     org:
       hibernate:
         orm:
           jdbc:
-            bind: TRACE
+            bind: DEBUG
+    com:
+      javaacademy:
+        flat_rent: DEBUG
